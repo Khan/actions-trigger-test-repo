@@ -2,8 +2,5 @@
 for testing whether a github action can trigger another github action
 
 making a change please
+ok
 and another one
-an
-\nadding a line to the readme
-yeah but please re-run
-\nadding a line to the readme
