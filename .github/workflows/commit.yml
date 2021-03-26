@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          depth: 0
+          fetch-depth: 0
       - run: |
           echo "\nadding a line to the readme" >> README.md
           git config user.name "Khan Actions Bot"
