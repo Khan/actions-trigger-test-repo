@@ -1,0 +1,13 @@
+name: Checks
+'on':
+  pull_request:
+    paths:
+      - README.md
+jobs:
+  cat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "Love it"
+          exit 0
