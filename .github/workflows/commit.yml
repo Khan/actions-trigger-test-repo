@@ -11,7 +11,9 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           echo "\nadding a line to the readme" >> README.md
-          git commit -am "Committing autofixes" --author 'Khan Actions Bot <khan-actions-bot@khanacademy.org>'
+          git config user.name "Khan Actions Bot"
+          git config user.email "khan-actions-bot@khanacademy.org"
+          git commit -am "Committing autofixes"
           git push https://${GITHUB_TOKEN}@github.com/Khan/actions-trigger-test-repo HEAD:${GITHUB_HEAD_REF}
           exit 1
         env:
