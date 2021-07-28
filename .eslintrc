@@ -14,5 +14,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "flowtype", "jest"],
-  "rules": {}
+  "rules": {
+    "indent": ["error", 4]
+  }
 }

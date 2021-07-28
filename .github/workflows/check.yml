@@ -15,6 +15,7 @@ jobs:
         uses: Khan/eslint-action@348c3edd27debe94074220c69a7febd1e42d9bf4
         with:
           eslint-lib: ./node_modules/eslint
+          run-all-if-changed: package.json,.eslintrc.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Flow
