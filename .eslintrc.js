@@ -3,6 +3,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
@@ -12,6 +13,6 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'flowtype'],
+  plugins: ['react', 'flowtype', 'jest'],
   rules: {},
 };
