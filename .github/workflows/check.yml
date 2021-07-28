@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run ESLint
-        uses: Khan/eslint-action@v1.1.3
+        uses: Khan/eslint-action@348c3edd27debe94074220c69a7febd1e42d9bf4
         with:
           eslint-lib: ./node_modules/eslint
         env:
