@@ -1,34 +1,32 @@
 name: Checks
-'on':
-  pull_request:
-    paths:
-      - package.json
-      - yarn.lock
-      - 'src/**.js'
+on: 
+  - pull_request
 jobs:
   cat:
     runs-on: ubuntu-latest
     steps:
+      # Need to checkout the base ref, so we have something to compare to
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.base_ref }}
+      - uses: actions/checkout@v2
+      - run: yarn
       - name: Run ESLint
-        uses: Khan/eslint-action@v1.1.3
+        uses: Khan/eslint-action@348c3edd27debe94074220c69a7febd1e42d9bf4
         with:
           eslint-lib: ./node_modules/eslint
-          custom-working-directory: ./services/static
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Flow
         uses: Khan/flow-action@v1.1.2
         with:
           flow-bin: ./node_modules/.bin/flow
-          custom-working-directory: ./services/static
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Jest
         uses: Khan/jest-action@v1.1.4
         with:
           jest-bin: ./node_modules/.bin/jest
-          custom-working-directory: ./services/static
           find-related-tests: 1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
