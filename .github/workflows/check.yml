@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Run ESLint
         uses: Khan/eslint-action@348c3edd27debe94074220c69a7febd1e42d9bf4
         with:
