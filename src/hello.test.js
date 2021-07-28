@@ -4,6 +4,6 @@ import hello from './hello';
 
 describe('a test', () => {
   it('should work', () => {
-    expect(hello()).toEqual(10);
+    expect(hello()).toEqual(20);
   });
 });
