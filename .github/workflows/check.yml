@@ -5,9 +5,10 @@ jobs:
   cat:
     runs-on: ubuntu-latest
     steps:
+      # Need to checkout the base ref, so we have something to compare to
       - uses: actions/checkout@v2
         with:
-          ref: main
+          ref: ${{ github.base_ref }}
       - uses: actions/checkout@v2
       - run: yarn
       - name: Run ESLint
