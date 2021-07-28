@@ -10,21 +10,18 @@ jobs:
         uses: Khan/eslint-action@v1.1.3
         with:
           eslint-lib: ./node_modules/eslint
-          custom-working-directory: ./services/static
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Flow
         uses: Khan/flow-action@v1.1.2
         with:
           flow-bin: ./node_modules/.bin/flow
-          custom-working-directory: ./services/static
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Jest
         uses: Khan/jest-action@v1.1.4
         with:
           jest-bin: ./node_modules/.bin/jest
-          custom-working-directory: ./services/static
           find-related-tests: 1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
