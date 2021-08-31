@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -ex
+set -ex
 
 read fileA
 read textA
@@ -7,7 +7,7 @@ read textA
 echo $textA >> $fileA
 
 #git add .
-git commit -am 'automate1.sh adding \`$textA\` to $fileA'
+git commit -am "automate1.sh adding \`$textA\` to $fileA"
 
 #git pull-request
 
