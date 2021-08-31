@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 read LINE_NO
 TIME=$(date +%H:%M:%S)
