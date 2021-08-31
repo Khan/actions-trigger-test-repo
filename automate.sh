@@ -4,52 +4,18 @@
 read LINE_NO
 TIME=$(date +%H:%M:%S)
 SEC=$(date +%S)
-echo "$TIME"
-CURRENT_LINE=1
-ADDED=false
+#echo "$TIME"
 
-LOREM=(lorem ipsum dolor sit amet consectetur adipiscing elit eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ea commodo consequat duis aute irure dolor reprehenderit voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim est laborum)
+LOREM=(LOREM IPSUM DOLOR SIT AMET CONSECTETUR ADIPISCING ELIT EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA UT ENIM AD MINIM VENIAM QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR REPREHENDERIT VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR EXCEPTEUR SINT OCCAECAT CUPIDATAT NON PROIDENT SUNT CULPA QUI OFFICIA DESERUNT MOLLIT ANIM EST LABORUM)
 
-#sed -i -e "$LINE_NOi\
-#$TIME" myFile.txt
-nl="
-"
-sed -i -e "${LINE_NO}s/^/${TIME} ${LOREM[SEC]} ${LOREM[SEC+1]}NL/g" myFile.txt
+sed -i -e "${LINE_NO}s/^/${TIME} ${LOREM[$SEC]} ${LOREM[$SEC+1]}NL/g" myFile.txt
 sed -i -e 's/NL/\
 /g' myFile.txt
 
+LOREM1=${LOREM[$SEC]}
+LOREM2=${LOREM[$SEC+1]}
 
-#while IFS= read -r line
-#do
-#  echo $line >> myFile.txt
-#  
-#  if [[ $CURRENT_LINE == $LINE_NO ]] ; then
-#    
-#    echo $TIME >> myFile.txt
-#    ADDED=true
-#  fi
-#  
-#  CURRENT_LINE = $CURRENT_LINE + 1
-#  
-#done < myFile.txt
-#
-#if [[ $ADDED == false ]] ; then
-#    echo $TIME >> myFile.txt
-#fi
-#
-##echo stuff >> $fileA
-##echo $textA >> $fileA
-##echo stuff >> $fileA
-##
-##read fileB
-##read textB
-##
-##echo stuff >> $fileB
-##echo $textB >> $fileB
-##echo stuff >> $fileB
-#
-##git add .
-#git commit -am 'automate.sh adding $TIME to line $LINE'
+git commit -am "automate.sh adding \`$TIME $LOREM1 $LOREM2\` to line $LINE_NO"
 #
 ##git pull-request
 
