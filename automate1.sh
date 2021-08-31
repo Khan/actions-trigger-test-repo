@@ -16,7 +16,7 @@ sed -i -e 's/NL/\
 LOREM1=${LOREM[$SEC]}
 LOREM2=${LOREM[$SEC+1]}
 
-git commit -am "automate.sh adding \`$TIME $LOREM1 $LOREM2\` to line $LINE_NO of $FILE"
+git commit -am "automate2.sh adding \`$TIME $LOREM1 $LOREM2\` to line $LINE_NO of $FILE"
 #
 ##git pull-request
 

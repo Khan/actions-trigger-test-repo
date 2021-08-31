@@ -1,13 +1,13 @@
 #!/bin/bash
-set -ex
+#set -ex
 
-read fileA
-read textA
+read FILE
+read TEXT
 
-echo $textA >> $fileA
+echo $TEXT >> $FILE
 
 #git add .
-git commit -am "automate1.sh adding \`$textA\` to $fileA"
+git commit -am "automate2.sh adding \`$TEXT\` to $FILE"
 
 #git pull-request
 
