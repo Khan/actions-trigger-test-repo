@@ -24,6 +24,7 @@ LOREM2=${LOREM[$SEC*2]}
 
 LINE_NO=$(wc -l <$FILE)
 LINE_NO=$(echo $LINE_NO | xargs)
+LINE_NO=$((LINE_NO+1))
 
 echo "Updating file..."
 echo "$LINE_NO $TIME [$BRANCH_NAME] $LOREM1 $LOREM2" >> $FILE
