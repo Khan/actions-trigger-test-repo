@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-read FILE
-read LINE_NO
+
+read -p "File? " FILE
+read -p "Line No? " LINE_NO
+
 TIME=$(date +%H:%M:%S)
 SEC=$(date +%S)
 
@@ -12,11 +14,15 @@ LOREM=(HOMER_SIMPSON MARGE_SIMPSON BART_SIMPSON LISA_SIMPSON MAGGIE_SIMPSON ABRA
 LOREM1=${LOREM[$SEC]}
 LOREM2=${LOREM[$SEC*2]}
 
+
+echo "Updating file..."
 sed -i -e "${LINE_NO}s/^/${LINE_NO} ${TIME} ${LOREM1} ${LOREM2}NL/g" $FILE
 sed -i -e 's/NL/\
 /g' $FILE
 
 
+echo "Committing change..."
+set -x
 git commit -am "automate2.sh adding \`$TIME $LOREM1 $LOREM2\` to line $LINE_NO of $FILE"
 
 

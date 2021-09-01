@@ -21,6 +21,7 @@ echo "Updating file..."
 echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
 echo "Committing change..."
+set -x
 git commit -am "automate2.sh adding \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
 
 
