@@ -3,12 +3,13 @@ set -e
 
 if [ $# -eq 0 ]
   then
-    read -p "File? " FILE 
-    read -p "Line No? " LINE_NO
+    read -p $'\e[36mFile?\e[0m ' FILE
+    read -p $'\e[36mLine No?\e[0m ' LINE_NO
+    
 elif [ $# -eq 1 ]
   then
     FILE=$1      
-    read -p "Line No? " LINE_NO
+    read -p $'\e[36mLine No?\e[0m ' LINE_NO
 else
   FILE=$1
   LINE_NO=$2
@@ -31,6 +32,8 @@ sed -i -e 's/NL/\
 
 
 echo "Committing change..."
+tput setaf 3
+
 set -x
 git commit -am "Inserting \`$TIME $LOREM1 $LOREM2\` on line $LINE_NO of $FILE"
 
