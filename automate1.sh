@@ -1,9 +1,18 @@
 #!/bin/bash
 set -e
 
-
-read -p "File? " FILE
-read -p "Line No? " LINE_NO
+if [ -z "$1" ]
+  then
+    read -p "File? " FILE 
+    read -p "Line No? " LINE_NO
+elif [-z "$2"]
+  then
+    FILE=$1      
+    read -p "Line No? " LINE_NO
+else
+  FILE=$1
+  LINE_NO=$2
+fi
 
 TIME=$(date +%H:%M:%S)
 SEC=$(date +%S)
