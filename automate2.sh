@@ -24,7 +24,7 @@ LINE_NO=$(echo $LINE_NO | xargs)
 echo "Updating file..."
 echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
-echo "Committing change..."
+echo "Committing change...\n"
 set -x
 git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
 
