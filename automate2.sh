@@ -1,10 +1,12 @@
 #!/bin/bash
 #set -ex
 
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 if [ $# -eq 0 ]
   then
-    read -p "File? " FILE 
+    read -p $'\e[36mFile?\e[0m ' FILE
 else
   FILE=$1
 fi
@@ -25,7 +27,9 @@ echo "Updating file..."
 echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
 echo "Committing change..."
+tput setaf 5; 
+
 set -x
-tput setaf 1; git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
+git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
 
 
