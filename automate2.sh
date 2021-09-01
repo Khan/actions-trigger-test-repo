@@ -25,8 +25,7 @@ echo "Updating file..."
 echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
 echo "Committing change..."
-echo ""
 set -x
-git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
+tput setaf 1; git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
 
 
