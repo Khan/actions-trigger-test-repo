@@ -1,6 +1,7 @@
 #!/bin/bash
 #set -ex
 
+
 TIME=$(date +%H:%M:%S)
 SEC=$(date +%S)
 
@@ -9,8 +10,9 @@ LOREM=(HOMER_SIMPSON MARGE_SIMPSON BART_SIMPSON LISA_SIMPSON MAGGIE_SIMPSON ABRA
 LOREM1=${LOREM[$SEC]}
 LOREM2=${LOREM[$SEC*2]}
 
+echo "(FILE?)"
 read FILE
-#read TEXT
+
 
 LINE_NO=$(wc -l <$FILE)
 LINE_NO=$(echo $LINE_NO | xargs)
