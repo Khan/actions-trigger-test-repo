@@ -11,14 +11,16 @@ LOREM1=${LOREM[$SEC]}
 LOREM2=${LOREM[$SEC*2]}
 
 echo "(FILE?)"
-read FILE
+read "file?" FILE
 
 
 LINE_NO=$(wc -l <$FILE)
 LINE_NO=$(echo $LINE_NO | xargs)
 
+echo "Updating file..."
 echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
+echo "Committing change..."
 git commit -am "automate2.sh adding \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
 
 
