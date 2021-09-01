@@ -12,7 +12,8 @@ LOREM2=${LOREM[$SEC*2]}
 read FILE
 #read TEXT
 
-LINE_NO=$(sed ‘s/^ *//g’ `wc -l <$FILE`)
+LINE_NO=$(wc -l <$FILE)
+LINE_NO=$(echo $LINE_NO | xargs)
 
 echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
