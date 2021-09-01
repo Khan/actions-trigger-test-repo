@@ -26,12 +26,12 @@ LINE_NO=$(wc -l <$FILE)
 LINE_NO=$(echo $LINE_NO | xargs)
 
 echo "Updating file..."
-echo "$LINE_NO: [$BRANCH_NAME] $LOREM1 $LOREM2" >> $FILE
+echo "$LINE_NO $TIME [$BRANCH_NAME] $LOREM1 $LOREM2" >> $FILE
 
 echo "Committing change..."
 tput setaf 3; 
 
 set -x
-git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
+git commit -am "Appending \`$LINE_NO $TIME $LOREM1 $LOREM2\` to $FILE"
 
 
