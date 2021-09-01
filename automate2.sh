@@ -2,6 +2,14 @@
 #set -ex
 
 
+if [ $# -eq 0 ]
+  then
+    read -p "File? " FILE 
+else
+  FILE=$1
+fi
+
+
 TIME=$(date +%H:%M:%S)
 SEC=$(date +%S)
 
@@ -9,10 +17,6 @@ LOREM=(HOMER_SIMPSON MARGE_SIMPSON BART_SIMPSON LISA_SIMPSON MAGGIE_SIMPSON ABRA
 
 LOREM1=${LOREM[$SEC]}
 LOREM2=${LOREM[$SEC*2]}
-
-
-read -p "File? " FILE
-
 
 LINE_NO=$(wc -l <$FILE)
 LINE_NO=$(echo $LINE_NO | xargs)
@@ -22,6 +26,6 @@ echo "$LINE_NO: $LOREM1 $LOREM2" >> $FILE
 
 echo "Committing change..."
 set -x
-git commit -am "automate2.sh adding \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
+git commit -am "Appending \`$LINE_NO: $LOREM1 $LOREM2\` to $FILE"
 
 

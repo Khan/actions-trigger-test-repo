@@ -32,6 +32,6 @@ sed -i -e 's/NL/\
 
 echo "Committing change..."
 set -x
-git commit -am "automate2.sh adding \`$TIME $LOREM1 $LOREM2\` to line $LINE_NO of $FILE"
+git commit -am "Inserting \`$TIME $LOREM1 $LOREM2\` on line $LINE_NO of $FILE"
 
 
