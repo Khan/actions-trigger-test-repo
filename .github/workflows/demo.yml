@@ -16,3 +16,15 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Linting!"
+  flow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Flow!"
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Unit Tests!"
