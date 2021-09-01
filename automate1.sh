@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-if [ -z "$1" ]
+if [ $# -eq 0 ]
   then
     read -p "File? " FILE 
     read -p "Line No? " LINE_NO
-elif [-z "$2"]
+elif [ $# -eq 1 ]
   then
     FILE=$1      
     read -p "Line No? " LINE_NO
