@@ -17,6 +17,7 @@ fi
 
 TIME=$(date +%H:%M:%S)
 SEC=$(date +%S)
+SEC=$(echo $SEC | sed 's/^0//')
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
 
