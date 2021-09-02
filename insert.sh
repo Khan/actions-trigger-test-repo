@@ -8,11 +8,18 @@ if [ $# -eq 0 ]
     
 elif [ $# -eq 1 ]
   then
-    FILE=$1      
+    FILE=$1
     read -p $'\e[36mLine No?\e[0m ' LINE_NO
+
+elif [ $# -eq 2 ]
+  then
+    FILE=$1
+    LINE_NO=$2
+
 else
   FILE=$1
   LINE_NO=$2
+  NO_COMMIT=true
 fi
 
 TIME=$(date +%H:%M:%S)
@@ -32,6 +39,11 @@ sed -i -e "${LINE_NO}s/^/${LINE_NO} ${TIME} [$BRANCH_NAME] ${LOREM1} ${LOREM2}NL
 sed -i -e 's/NL/\
 /g' $FILE
 
+
+if [[ $NO_COMMIT = true ]]
+  then
+    exit
+fi
 
 echo "Committing change..."
 tput setaf 3

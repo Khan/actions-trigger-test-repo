@@ -7,8 +7,12 @@ NC='\033[0m' # No Color
 if [ $# -eq 0 ]
   then
     read -p $'\e[36mFile?\e[0m ' FILE
+elif [ $# -eq 1 ]
+  then
+    FILE=$1
 else
   FILE=$1
+  NO_COMMIT=true
 fi
 
 
@@ -29,6 +33,12 @@ LINE_NO=$((LINE_NO+1))
 
 echo "Updating file..."
 echo "$LINE_NO $TIME [$BRANCH_NAME] $LOREM1 $LOREM2" >> $FILE
+
+
+if [[ $NO_COMMIT = true ]]
+  then
+    exit
+fi
 
 echo "Committing change..."
 tput setaf 3; 
