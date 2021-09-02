@@ -13,8 +13,8 @@ fi
 
 
 TIME=$(date +%H:%M:%S)
-SEC=08#cd $(date +%S)
-SEC=$(sed 's/^0// SEC')
+SEC='08' #cd $(date +%S)
+SEC=$(sed 's/^0//' $SEC)
 echo $SEC
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
