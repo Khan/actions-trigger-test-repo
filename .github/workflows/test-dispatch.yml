@@ -1,0 +1,137 @@
+
+name: Release branch actions
+id: vbump
+on:
+  push:
+    branches:
+      - release/**
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to release'
+        required: true
+jobs:
+  version_bump:
+    runs-on: ubuntu-latest
+    if: github.actor != 'khan-actions-bot'
+    steps:
+      - name: "\U0001F53D Start setup [checkout]"
+        run: echo "Setting something up"
+      - uses: actions/checkout@v3
+        name: get the repo
+        with:
+          ref: '${{ env.GITHUB_REF }}'
+          token: '${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}'
+      - name: "\U0001F53C Finished setup [checkout]"
+        run: echo "Finished setting it up"
+      - name: Do checks
+        id: do_checks
+        run: >-
+
+          if ! [[ -f "android/app/build.gradle" ]]; then
+
+          echo "The file 'android/app/build.gradle' does not exist!"
+          echo "Automations here and on Bitrise expect this file, so if you moved it, put it back or update the automations!"
+          exit 1
+
+          fi
+
+          if ! [[ -f "ios/Resources/configs/app/Common.xcconfig" ]]; then
+
+          echo "The file 'ios/Resources/configs/app/Common.xcconfig' does not exist!"
+          echo "Automations here and on Bitrise expect this file, so if you moved it, put it back or update the automations!"
+          exit 1
+
+          fi
+
+          if ! [[ -n $(egrep '^[ \t]*def[ \t]*currentVersionName[ \t]*=[ \t]*"[0-9]+\.[0-9]+\.[0-9]+".*$' android/app/build.gradle) ]]; then
+
+          echo "The 'currentVersionName' line is missing from the file 'android/app/build.gradle'!"
+          echo "Automations here and on Bitrise expect this line, so if you moved it, put it back or update the automations!"
+          exit 1
+
+          fi
+
+          if ! [[ -n $(egrep '^[ \t]*APP_VERSION[ \t]*=[ \t]*[0-9]+\.[0-9]+\.[0-9]+.*$' ios/Resources/configs/app/Common.xcconfig) ]]; then
+
+          echo "The 'APP_VERSION' line is missing from the file 'ios/Resources/configs/app/Common.xcconfig'!"
+          echo "Automations here and on Bitrise expect this line, so if you moved it, put it back or update the automations!"
+          exit 1
+
+          fi
+
+          echo "Everything looks fine!"
+
+          exit 0
+
+      - name: Extract version
+        id: extract_version
+        run: >-
+          BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+          if [[ $(echo $BRANCH_NAME | sed -r 's/^release\/.*\/([0-9]+\.[0-9]+\.[0-9]+)$/MATCH/g') == "MATCH" ]] ; then
+
+          echo "Release branch matches versioning pattern!"
+
+          VERSION=$(echo $BRANCH_NAME | sed -r 's/^release\/.*\/([0-9]+\.[0-9]+\.[0-9]+)$/\1/g')
+
+          echo "$VERSION"
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          exit 0
+
+          fi
+
+          echo "Release branch does not match versioning pattern! It should match the pattern '/^release/.*/d+.d+.d+$/'"
+
+          exit 1
+      - name: Bump Android version
+        if: steps.extract_version.outputs.version
+        id: bump_android_version
+        shell: bash
+        run: >-
+          sed  -ri'.bak' 's/^([ \t]*def[ \t]*currentVersionName[ \t]*=[ \t]*")([0-9]+\.[0-9]+\.[0-9]+)(".*)$/\1${{ steps.extract_version.outputs.version }}\3/' android/app/build.gradle
+
+      - name: Bump iOS version
+        if: steps.extract_version.outputs.version
+        id: bump_ios_version
+        shell: bash
+        run: >-
+          sed  -ri'.bak' 's/^([ \t]*APP_VERSION[ \t]*=[ \t]*)([0-9]+\.[0-9]+\.[0-9]+)(.*)$/\1${{ steps.extract_version.outputs.version }}\3/' ios/Resources/configs/app/Common.xcconfig
+
+      - name: 'Check build files changed'
+        id: paths__build_files_
+        run: >-
+
+          if [[ -n $(git diff --name-only |
+          grep 'ios/Resources/configs/app/Common.xcconfig\|android/app/build.gradle') ]] ; then
+
+          echo "The version files changed!"
+
+          echo "changed=true" >> $GITHUB_OUTPUT
+
+          exit 0
+
+          fi
+
+          echo "The version files did change. Nothing to commit."
+
+          echo "changed=false" >> $GITHUB_OUTPUT
+
+          exit 0
+      - run: |
+          set -ex
+          if [[ -n $(git status -s -uno) ]]
+          then
+              git fetch --unshallow
+              git config user.name "Khan Actions Bot"
+              git config user.email "khan-actions-bot@khanacademy.org"
+              git commit -am "Bumping versions"
+              git fetch origin ${BRANCH}
+              git merge FETCH_HEAD -m "Merging in remote"
+              git push origin HEAD:${BRANCH}
+          fi
+        env:
+          GITHUB_TOKEN: '${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}'
+          BRANCH: '${{ github.head_ref || github.ref_name }}'
