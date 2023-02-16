@@ -11,7 +11,6 @@ on:
 jobs:
   version_bump:
     runs-on: ubuntu-latest
-    if: github.actor != 'khan-actions-bot'
     steps:
       - name: "\U0001F53D Start setup [checkout]"
         run: echo "Setting something up"
