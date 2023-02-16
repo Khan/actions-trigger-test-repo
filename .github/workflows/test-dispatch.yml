@@ -4,10 +4,6 @@ on:
     branches:
       - release/**
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'The branch to release'
-        required: true
 jobs:
   version_bump:
     runs-on: ubuntu-latest
