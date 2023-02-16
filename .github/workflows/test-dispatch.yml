@@ -1,6 +1,4 @@
-
 name: Release branch actions
-id: vbump
 on:
   push:
     branches:
